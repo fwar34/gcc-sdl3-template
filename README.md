@@ -1,1 +1,1 @@
-vscode-gcc template
+vscode-gcc-sdl3 template
