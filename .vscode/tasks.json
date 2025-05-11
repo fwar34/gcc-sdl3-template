@@ -38,7 +38,7 @@
             "label": "FCMake Run",
             "type": "shell",
             "command": "build/${workspaceFolderBasename}.exe",
-            "args": ["../0.gif", "../1.jpg", "../2.jpg"],
+            "args": ["0.gif", "1.jpg", "2.jpg"],
             "group": "build",
             "problemMatcher": [
                 "$gcc"
