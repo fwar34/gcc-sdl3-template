@@ -6,7 +6,7 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/build/${workspaceFolderBasename}.exe",
-      "args": [],
+      "args": ["${workspaceFolder}/0.gif", "${workspaceFolder}/2.jpg"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],

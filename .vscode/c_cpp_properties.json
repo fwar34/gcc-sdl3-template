@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "E:/ide/SDL3-3.2.12/x86_64-w64-mingw32/include"  // 替换为你的 SDL2 include 路径
+                "E:/ide/SDL3-3.2.12/x86_64-w64-mingw32/include",  // 替换为你的 SDL2 include 路径
+                "E:/ide/SDL3_image-3.2.4/x86_64-w64-mingw32/include"  // 替换为你的 SDL2 include 路径
             ],
             "defines": [
                 "_DEBUG",
@@ -18,7 +19,8 @@
             "browse": {
                 "path": [
                     "${workspaceFolder}",
-                    "E:/ide/SDL3-3.2.12/x86_64-w64-mingw32/include"
+                    "E:/ide/SDL3-3.2.12/x86_64-w64-mingw32/include",
+                    "E:/ide/SDL3_image-3.2.4/x86_64-w64-mingw32/include"
             ]
             }
         }
