@@ -22,7 +22,15 @@ target_sources(${PROJECT_DIR_NAME}
 PRIVATE
     # src/main.cpp
     # src/main_image.cpp
-    src/main_anim.cpp
+    # src/main_anim.cpp
+    # src/main_draw.cpp
+    src/main_ui.cpp
+    src/fui_service.cpp
+    src/animator.cpp
+    src/animator_task.cpp
+    src/fui_impl.cpp
+    src/fui.cpp
+    src/itask.cpp
 )
 
 target_include_directories(${PROJECT_DIR_NAME} PRIVATE "${SDL3_INSTALL_DIR}\\include" "${SDL3_image_INSTALL_DIR}\\include")
