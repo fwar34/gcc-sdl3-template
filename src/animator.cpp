@@ -74,6 +74,10 @@ void Animator::Play()
         } else {
             std::string imageName = NextImage();
             SDL_Surface *surface = IMG_Load(imageName.c_str());
+            if (!surface) {
+                SDL_LogError(FUI_LOG, "IMG_Load error: %s", SDL_GetError());
+                return;
+            }
             FUi::GetInstance().RenderSurface(surface);
             SDL_DestroySurface(surface);
         }
@@ -88,7 +92,9 @@ void Animator::Reset()
 std::string Animator::ConcateImageName(int imageIndex_)
 {
     std::string imageName = "A_";
-    imageName += imageIndex_;
+    char fmtNum[5] = {0};
+    sprintf(fmtNum, "%04d", imageIndex_);
+    imageName += fmtNum;
     imageName += ".jpg";
     return imageName;
 }

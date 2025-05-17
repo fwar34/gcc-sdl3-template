@@ -36,15 +36,33 @@ PRIVATE
 target_include_directories(${PROJECT_DIR_NAME} PRIVATE "${SDL3_INSTALL_DIR}\\include" "${SDL3_image_INSTALL_DIR}\\include")
 target_link_libraries(${PROJECT_DIR_NAME} SDL3::SDL3 SDL3_image::SDL3_image)
 
+# 获取所有JPG文件
+file(GLOB_RECURSE POINT_JPG_FILES "${CMAKE_SOURCE_DIR}/src/animation_frames/*.jpg")
+file(GLOB_RECURSE FLOWER_JPG_FILES "${CMAKE_SOURCE_DIR}/src/flower_frames/*.jpg")
+
 # 编译后自动执行命令（Windows 示例：复制 DLL）
 add_custom_command(TARGET ${PROJECT_DIR_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${SDL3_INSTALL_DIR}/x86_64-w64-mingw32/bin/SDL3.dll"
         "$<TARGET_FILE_DIR:${PROJECT_DIR_NAME}>"
-    COMMAND ${CMAKE_COMMAND} -E copy
+    COMMENT "Copying SDL3.dll to output directory"
+
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${SDL3_image_INSTALL_DIR}/x86_64-w64-mingw32/bin/SDL3_image.dll"
         "$<TARGET_FILE_DIR:${PROJECT_DIR_NAME}>"
-    COMMENT "Copying SDL3.dll and SDL3_image.dll to output directory"
+    COMMENT "Copying SDL3_image.dll to output directory"
+
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${POINT_JPG_FILES}
+        "$<TARGET_FILE_DIR:${PROJECT_DIR_NAME}>"
+    # DEPENDS ${POINT_JPG_FILES}
+    COMMENT "复制JPG文件到构建目录"
+
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${FLOWER_JPG_FILES}
+        "$<TARGET_FILE_DIR:${PROJECT_DIR_NAME}>"
+    # DEPENDS ${POINT_JPG_FILES}
+    COMMENT "复制JPG文件到构建目录"
 )
 
 # 设置支持的图片格式（可选）

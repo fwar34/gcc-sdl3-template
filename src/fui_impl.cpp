@@ -11,7 +11,8 @@ int FUiImpl::Init()
         return FUI_ERROR_SDL_ERROR;
     }
 
-    if (!SDL_CreateWindowAndRenderer("Test FUi", 800, 600, SDL_WINDOW_HIDDEN, &window_, &renderer_)) {
+    if (!SDL_CreateWindowAndRenderer("Test FUi", WINDOW_WIDTH, 
+        WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE, &window_, &renderer_)) {
         SDL_LogError(FUI_LOG, "SDL_CreateWindowAndRenderer error: %s", SDL_GetError());
         return FUI_ERROR_SDL_ERROR;
     }
