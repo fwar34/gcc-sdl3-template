@@ -1,5 +1,4 @@
-#include "fui.h"
-#include "animator.h"
+#include "../fui/fui.h"
 #include <unistd.h>
 int main(int argc, char *argv[])
 {
@@ -12,7 +11,7 @@ int main(int argc, char *argv[])
     // }
 
     Animator animator;
-    // animator.Setup(std::string("A_0000.jpg"), 60, 16, 
+    // animator.Setup(std::string("A_0000.jpg"), 60, 16, // 圆形
     //     Animator::AnimatorLoadType::ANIMATOR_LOAD_ALL);
     animator.Setup(std::string("A_0000.jpg"), 240, 16,  // 花朵
         Animator::AnimatorLoadType::ANIMATOR_LOAD_SINGLE);
@@ -22,7 +21,11 @@ int main(int argc, char *argv[])
     while (!quit) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) {
+            if (event.type == SDL_EVENT_KEY_DOWN) {
+                if (event.key.key == SDLK_Q) {
+                    quit = true;
+                }
+            } else if (event.type == SDL_EVENT_QUIT) {
                 quit = true;
             }
         }

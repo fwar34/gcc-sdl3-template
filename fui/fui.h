@@ -2,6 +2,7 @@
 #include "fui_impl.h"
 #include "fui_config.h"
 #include "singleton.h"
+#include "animator.h"
 
 class FUi : public Singleton<FUi>
 {

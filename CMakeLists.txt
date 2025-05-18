@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
 
-set(SDL3_INSTALL_DIR "E:\\ide\\SDL3-3.2.12")
-set(SDL3_image_INSTALL_DIR "E:\\ide\\SDL3_image-3.2.4")
-
 # 获取目录名（不带路径）
 get_filename_component(PROJECT_DIR_NAME 
     "${CMAKE_SOURCE_DIR}" NAME)
@@ -11,11 +8,10 @@ get_filename_component(PROJECT_DIR_NAME
 
 project(${PROJECT_DIR_NAME} C CXX)
 
-set(SDL3_DIR "${SDL3_INSTALL_DIR}\\cmake")  # 指向 SDL2 的 cmake 目录
-find_package(SDL3 REQUIRED)
+set(SDL3_INSTALL_DIR "E:\\ide\\SDL3-3.2.12")
+set(SDL3_image_INSTALL_DIR "E:\\ide\\SDL3_image-3.2.4")
 
-set(SDL3_image_DIR "${SDL3_image_INSTALL_DIR}\\cmake")
-find_package(SDL3_image REQUIRED)  # 可选：SDL2_image 扩展库
+add_subdirectory(fui)
 
 add_executable(${PROJECT_DIR_NAME})
 target_sources(${PROJECT_DIR_NAME}
@@ -25,16 +21,9 @@ PRIVATE
     # src/main_anim.cpp
     # src/main_draw.cpp
     src/main_ui.cpp
-    src/fui_service.cpp
-    src/animator.cpp
-    src/animator_task.cpp
-    src/fui_impl.cpp
-    src/fui.cpp
-    src/itask.cpp
 )
 
-target_include_directories(${PROJECT_DIR_NAME} PRIVATE "${SDL3_INSTALL_DIR}\\include" "${SDL3_image_INSTALL_DIR}\\include")
-target_link_libraries(${PROJECT_DIR_NAME} SDL3::SDL3 SDL3_image::SDL3_image)
+target_link_libraries(${PROJECT_DIR_NAME} fui)
 
 # 获取所有JPG文件
 file(GLOB_RECURSE POINT_JPG_FILES "${CMAKE_SOURCE_DIR}/src/animation_frames/*.jpg")
@@ -56,21 +45,21 @@ add_custom_command(TARGET ${PROJECT_DIR_NAME} POST_BUILD
         ${POINT_JPG_FILES}
         "$<TARGET_FILE_DIR:${PROJECT_DIR_NAME}>"
     # DEPENDS ${POINT_JPG_FILES}
-    COMMENT "复制JPG文件到构建目录"
+    COMMENT "复制JPG文件到构建目录, 先用python脚本生成序列帧"
 
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${FLOWER_JPG_FILES}
         "$<TARGET_FILE_DIR:${PROJECT_DIR_NAME}>"
     # DEPENDS ${POINT_JPG_FILES}
-    COMMENT "复制JPG文件到构建目录"
+    COMMENT "复制JPG文件到构建目录, 先用python脚本生成序列帧"
 )
 
 # 设置支持的图片格式（可选）
-target_compile_definitions(${PROJECT_DIR_NAME} PRIVATE
-    IMG_INIT_JPG=0x00000001
-    IMG_INIT_PNG=0x00000002
-    IMG_INIT_WEBP=0x00000004
-)
+# target_compile_definitions(${PROJECT_DIR_NAME} PRIVATE
+#     IMG_INIT_JPG=0x00000001
+#     IMG_INIT_PNG=0x00000002
+#     IMG_INIT_WEBP=0x00000004
+# )
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
